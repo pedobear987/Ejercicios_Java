@@ -8,20 +8,21 @@ public class libro {
 	int codigo;
 	boolean prestado;
 	
-	ArrayList<String> librospres = new ArrayList<String>();
-	
+	public ArrayList<String> librospres = new ArrayList<String>();
 	public libro(String titulo, int codigo, String ano_pu) {
 		this.titulo=titulo;
 		this.codigo=codigo;
 		this.ano_pu=ano_pu;
 		this.prestado=false;
-		librospres.add(this.titulo);
-		librospres.add("--------");
-		librospres.add("false");
-		librospres.add("--------");
-		librospres.add(this.ano_pu);
 	}
 
+	public void add() {
+		librospres.add(this.titulo);
+		librospres.add("--------");
+		librospres.add(this.ano_pu);
+		librospres.add("--------");
+		librospres.add("false");
+	}
 	public String getTitulo() {
 		return titulo;
 	}
@@ -59,29 +60,18 @@ public class libro {
 		return "libro [titulo=" + titulo + ", codigo=" + codigo + ", ano_pu=" + ano_pu + ", prestado=" + prestado + "]";
 	}
 	
-	public void prestar(String titulo) {
-		boolean si=false;
-		boolean entra=false;
+	public void prestar() {
+		int yes=1;
 		for (int i=0;i<librospres.size();i++) {
-			if(librospres.get(i)==titulo) {
-				entra=true;
-			if(entra==true) {
-		      if (librospres.get(i)=="--------") {
-		    	  if(si==false) {
-		    		  si=true;
-		    	  }
-		    	  else {
-		    		  si=false;
-		    		  entra=false;
-		    	  }
-		      }
+			if(librospres.get(i)==titulo) {yes=2;}
+				if(yes==2) {
 		      if(librospres.get(i)=="false") {
 		    	  librospres.set(i, "true");
+		    	  yes=1;
 		      }
-		    }
+			}
 			}
 		}
-	}
 	
 	public void devolver(String titulo) {
 		boolean si=false;
@@ -123,13 +113,47 @@ public class libro {
 		    	  }
 		      }
 		      if(librospres.get(i)=="true") {
-		    	  librospres.set(i, "false");
+		    	  System.out.print("Esta prestado");
+		      }
+		      else {
+		    	  System.out.print("No esta prestado");
 		      }
 		    }
 			}
 		}
 	}
+	
+	public void cuentaPrestados() {
+		int cont=0;
+		for (int i=0;i<librospres.size();i++) {
+		      if(librospres.get(i)=="true") {
+		    	  cont++;
+		      }
+		    }
+		System.out.print("Se han prestado: "+cont);
+	}	
+	public void publicacionesAnterioresA(int num) {
+		int cont=0;
+		for (int i=0; i<librospres.size();i++) {
+			if(librospres.get(i)=="--------") {
+				cont++;
+			}
+			if(cont==2) {
+				if(Integer.parseInt(librospres.get(i))>num) {
+					System.out.print("El libro '"+librospres.get(i-3)+"' es del año "+librospres.get(i));
+				}
+			}
+		}
+	}
 	interface Prestable{
 		
+	}
+	
+	public static void main(String[] args) {
+		libro n=new libro("Pepe", 4, "2004");
+		n.setPrestado(false);
+		n.add();
+		n.prestar();
+		n.cuentaPrestados();
 	}
 }
