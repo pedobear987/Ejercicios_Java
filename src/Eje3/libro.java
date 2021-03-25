@@ -73,54 +73,29 @@ public class libro {
 			}
 		}
 	
-	public void devolver(String titulo) {
-		boolean si=false;
-		boolean entra=false;
+	public void devolver() {
+		int yes=1;
 		for (int i=0;i<librospres.size();i++) {
-			if(librospres.get(i)==titulo) {
-				entra=true;
-			if(entra==true) {
-		      if (librospres.get(i)=="--------") {
-		    	  if(si==false) {
-		    		  si=true;
-		    	  }
-		    	  else {
-		    		  si=false;
-		    		  entra=false;
-		    	  }
-		      }
+			if(librospres.get(i)==titulo) {yes=2;}
+				if(yes==2) {
 		      if(librospres.get(i)=="true") {
 		    	  librospres.set(i, "false");
+		    	  yes=1;
 		      }
-		    }
 			}
-		}
+			}
 	}
-	public void prestado(String titulo) {
-		boolean si=false;
-		boolean entra=false;
+	public void prestado() {
+		int yes=1;
 		for (int i=0;i<librospres.size();i++) {
-			if(librospres.get(i)==titulo) {
-				entra=true;
-			if(entra==true) {
-		      if (librospres.get(i)=="--------") {
-		    	  if(si==false) {
-		    		  si=true;
-		    	  }
-		    	  else {
-		    		  si=false;
-		    		  entra=false;
-		    	  }
-		      }
+			if(librospres.get(i)==titulo) {yes=2;}
+				if(yes==2) {
 		      if(librospres.get(i)=="true") {
-		    	  System.out.print("Esta prestado");
+		    	  System.out.print("Esta prestado: "+titulo);
+		    	  yes=1;
 		      }
-		      else {
-		    	  System.out.print("No esta prestado");
-		      }
-		    }
 			}
-		}
+			}
 	}
 	
 	public void cuentaPrestados() {
@@ -151,7 +126,6 @@ public class libro {
 	
 	public static void main(String[] args) {
 		libro n=new libro("Pepe", 4, "2004");
-		n.setPrestado(false);
 		n.add();
 		n.prestar();
 		n.cuentaPrestados();
